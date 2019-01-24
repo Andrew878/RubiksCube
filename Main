@@ -1,15 +1,26 @@
 import numpy as np
 import Side as Side
+import CubeManipulator as CubeManipulator
 
-front = Side.Side("front", "Red")
+front = Side.Side("Front", "Red")
 top = Side.Side("Top", "Blue")
 right = Side.Side("Right", "White")
 left = Side.Side("Left", "Green")
 bottom = Side.Side("Bottom", "Yellow")
 back = Side.Side("Back", "Orange")
 
+front.setNeighbours(top_neighbour=top, left_neighbour=left, right_neighbour=right, bottom_neighbour=bottom)
+top.setNeighbours(top_neighbour=back, left_neighbour=left, right_neighbour=right, bottom_neighbour=front)
+back.setNeighbours(top_neighbour=bottom, left_neighbour=left, right_neighbour=right, bottom_neighbour=top)
+bottom.setNeighbours(top_neighbour=front, left_neighbour=left, right_neighbour=right, bottom_neighbour=back)
+left.setNeighbours(top_neighbour=top, left_neighbour=back, right_neighbour=front, bottom_neighbour=bottom)
+right.setNeighbours(top_neighbour=top, left_neighbour=front, right_neighbour=back, bottom_neighbour=bottom)
+
 all_sides = [front, top, right, left, bottom, back]
 
-for side in all_sides:
-    side.printSide()
+operations = CubeManipulator.CubeManipulator(all_sides)
+operations.printCubeState()
+
+
+
 

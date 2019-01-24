@@ -1,3 +1,15 @@
 import numpy as np
+import Side as Side
 
-class
+front = Side.Side("front", "Red")
+top = Side.Side("Top", "Blue")
+right = Side.Side("Right", "White")
+left = Side.Side("Left", "Green")
+bottom = Side.Side("Bottom", "Yellow")
+back = Side.Side("Back", "Orange")
+
+all_sides = [front, top, right, left, bottom, back]
+
+for side in all_sides:
+    side.printSide()
+

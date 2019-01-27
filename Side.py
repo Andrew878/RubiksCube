@@ -5,21 +5,18 @@ class Side(object):
 
     def __init__(self, identifier,
                  initial_colour,
-                 able_to_rotate_with_row_objects):  # , top_neighbour, left_neighbour, right_neighbour, bottom_neighbour):
+                 able_to_rotate_with_row_objects, LENGTH_OF_CUBE=3):
         """Create a side of the rubix cube"""
         self.identifier = identifier
         self.initial_colour = initial_colour
+        self.LENGTH_OF_CUBE = LENGTH_OF_CUBE
         self.top_neighbour = None
         self.left_neighbour = None
         self.right_neighbour = None
         self.bottom_neighbour = None
+        self.all_neighbours = None
         self.able_to_rotate_with_row_objects = able_to_rotate_with_row_objects
-        # row = [initial_colour, initial_colour, initial_colour]
-        self.array_of_squares = [[initial_colour, initial_colour, initial_colour], [initial_colour, initial_colour,
-                                                                                   initial_colour], [initial_colour,
-                                                                                                     initial_colour,
-                                                                                                     initial_colour]]
-        print(self.array_of_squares.__class__)
+        self.array_of_squares = [[self.initial_colour] * self.LENGTH_OF_CUBE] * self.LENGTH_OF_CUBE
 
     def setNeighbours(self, top_neighbour, left_neighbour, right_neighbour, bottom_neighbour):
         """Sets the relative neighbours of a side object"""
@@ -27,6 +24,8 @@ class Side(object):
         self.left_neighbour = left_neighbour
         self.right_neighbour = right_neighbour
         self.bottom_neighbour = bottom_neighbour
+        self.all_neighbours = {"Top": self.top_neighbour, "Bottom": self.bottom_neighbour,
+                               "Right": self.right_neighbour, "Left": self.left_neighbour}
 
     def printSide(self):
         """Prints the side's elements"""
@@ -75,13 +74,15 @@ class Side(object):
 
         elif orientation == "Right":
 
-            for i in range(0, 3):
+            for i in range(0, self.LENGTH_OF_CUBE):
                 self.array_of_squares[i][2] = replacement_list[i]
 
         elif orientation == "Left":
 
-            for i in range(0, 3):
+            for i in range(0, self.LENGTH_OF_CUBE):
                 self.array_of_squares[i][0] = replacement_list[i]
 
         else:
             raise ValueError("Needs to 'Top'/'Bottom/'Right'/'Left'")
+
+

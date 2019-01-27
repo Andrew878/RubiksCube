@@ -2,12 +2,14 @@ import numpy as np
 import Side as Side
 import CubeManipulator as CubeManipulator
 
-front = Side.Side("Front", "Red", False)
-top = Side.Side("Top", "Blue", False)
-right = Side.Side("Right", "White", True)
-left = Side.Side("Left", "Green", True)
-bottom = Side.Side("Bottom", "Yellow", False)
-back = Side.Side("Back", "Orange", False)
+LENGTH_OF_CUBE = 3
+
+front = Side.Side("Front", "Red", False, LENGTH_OF_CUBE)
+top = Side.Side("Top", "Blue", False, LENGTH_OF_CUBE)
+right = Side.Side("Right", "White", True, LENGTH_OF_CUBE)
+left = Side.Side("Left", "Green", True, LENGTH_OF_CUBE)
+bottom = Side.Side("Bottom", "Yellow", False, LENGTH_OF_CUBE)
+back = Side.Side("Back", "Orange", False, LENGTH_OF_CUBE)
 
 front.setNeighbours(top_neighbour=top, left_neighbour=left, right_neighbour=right, bottom_neighbour=bottom)
 top.setNeighbours(top_neighbour=back, left_neighbour=left, right_neighbour=right, bottom_neighbour=front)
@@ -18,18 +20,22 @@ right.setNeighbours(top_neighbour=top, left_neighbour=front, right_neighbour=bac
 
 all_sides = [front, top, right, left, bottom, back]
 
-operations = CubeManipulator.CubeManipulator(all_sides)
+operations = CubeManipulator.CubeManipulator(all_sides, LENGTH_OF_CUBE)
+operations.printCubeState()
+# front.printSide()
+# front.getRowOrColumnCopyForRotation("Top")
+# front.replaceRowOrColumnCopyForRotation("Top", [1, 2, 3])
+# front.getRowOrColumnCopyForRotation("Right")
+# front.printSide()
+# front.replaceRowOrColumnCopyForRotation("Left", ["a", "b", "c"])
+# front.printSide()
+# front.rotateFromFront(True)
+# front.printSide()
+# front.rotateFromFront(False)
+# front.printSide()
 
-front.printSide()
-front.getRowOrColumnCopyForRotation("Top")
-front.replaceRowOrColumnCopyForRotation("Top", [1, 2, 3])
-front.getRowOrColumnCopyForRotation("Right")
-front.printSide()
-front.replaceRowOrColumnCopyForRotation("Left", ["a", "b", "c"])
-front.printSide()
-front.rotateFromFront(True)
-front.printSide()
-front.rotateFromFront(False)
-front.printSide()
+operations.rotateSide(right)
+operations.printCubeState()
+operations.rotateSide(right, False)
+operations.printCubeState()
 
-# operations.printCubeState()

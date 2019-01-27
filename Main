@@ -2,12 +2,12 @@ import numpy as np
 import Side as Side
 import CubeManipulator as CubeManipulator
 
-front = Side.Side("Front", "Red")
-top = Side.Side("Top", "Blue")
-right = Side.Side("Right", "White")
-left = Side.Side("Left", "Green")
-bottom = Side.Side("Bottom", "Yellow")
-back = Side.Side("Back", "Orange")
+front = Side.Side("Front", "Red", False)
+top = Side.Side("Top", "Blue", False)
+right = Side.Side("Right", "White", True)
+left = Side.Side("Left", "Green", True)
+bottom = Side.Side("Bottom", "Yellow", False)
+back = Side.Side("Back", "Orange", False)
 
 front.setNeighbours(top_neighbour=top, left_neighbour=left, right_neighbour=right, bottom_neighbour=bottom)
 top.setNeighbours(top_neighbour=back, left_neighbour=left, right_neighbour=right, bottom_neighbour=front)
@@ -19,8 +19,17 @@ right.setNeighbours(top_neighbour=top, left_neighbour=front, right_neighbour=bac
 all_sides = [front, top, right, left, bottom, back]
 
 operations = CubeManipulator.CubeManipulator(all_sides)
-operations.printCubeState()
 
+front.printSide()
+front.getRowOrColumnCopyForRotation("Top")
+front.replaceRowOrColumnCopyForRotation("Top", [1, 2, 3])
+front.getRowOrColumnCopyForRotation("Right")
+front.printSide()
+front.replaceRowOrColumnCopyForRotation("Left", ["a", "b", "c"])
+front.printSide()
+front.rotateFromFront(True)
+front.printSide()
+front.rotateFromFront(False)
+front.printSide()
 
-
-
+# operations.printCubeState()

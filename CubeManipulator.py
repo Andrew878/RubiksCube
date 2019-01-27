@@ -12,9 +12,19 @@ class CubeManipulator(object):
         self.bottom = all_sides[4]
         self.back = all_sides[5]
 
+
     def printCubeState(self):
         for side in self.all_sides:
             side.printSide()
 
     def rotateSide(self, side_from_front_view, direction_clockwise=True):
         side_from_front_view.rotateFromFront(direction_clockwise)
+
+        if side_from_front_view.identifier == "Right" or side_from_front_view.identifier == "Left":
+            True
+
+
+
+
+
+

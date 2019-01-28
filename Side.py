@@ -83,6 +83,6 @@ class Side(object):
                 self.array_of_squares[i][0] = replacement_list[i]
 
         else:
-            raise ValueError("Needs to 'Top'/'Bottom/'Right'/'Left'")
+            raise ValueError("Needs to be 'Top'/'Bottom/'Right'/'Left'")
 
 

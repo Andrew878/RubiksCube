@@ -26,14 +26,14 @@ class CubeManipulator(object):
     def rotateSide(self, side_from_front_view, direction_clockwise=True):
         side_from_front_view.rotateFromFront(direction_clockwise)
         row_edge_copy = {}
+        face_being_rotated = side_from_front_view.identifier
 
         if side_from_front_view.identifier == "Right" or side_from_front_view.identifier == "Left":
-            edge_location_to_amend = side_from_front_view.identifier
 
             for edge in side_from_front_view.all_neighbours.keys():
                 print(edge, side_from_front_view.all_neighbours[edge].identifier)
                 row_edge_copy[edge] = side_from_front_view.all_neighbours[edge].getRowOrColumnCopyForRotation(
-                    edge_location_to_amend)
+                    face_being_rotated)
 
             if side_from_front_view.identifier == "Right":
                 direction_clockwise = not direction_clockwise
@@ -49,12 +49,30 @@ class CubeManipulator(object):
                 print()
                 print(side_from_front_view.all_neighbours[edge].identifier,
                       side_from_front_view.all_neighbours[edge].getRowOrColumnCopyForRotation(
-                          edge_location_to_amend),
+                          face_being_rotated),
                       "\nreplaced by\n", replacement_edge_key, row_edge_copy[replacement_edge_key])
 
-                side_from_front_view.all_neighbours[edge].replaceRowOrColumnCopyForRotation(edge_location_to_amend,
+                side_from_front_view.all_neighbours[edge].replaceRowOrColumnCopyForRotation(face_being_rotated,
                                                                                             row_edge_copy[
                                                                                                 replacement_edge_key])
-
         else:
-            True
+
+            for edge in side_from_front_view.all_neighbours.keys():
+                print(edge, side_from_front_view.all_neighbours[edge].identifier)
+
+                if edge == "Left":
+                    edge_to_extract_from_neighbour = self.left_edge_of_neighbour_given_face[face_being_rotated][0]
+                    is_row_reverse_required = self.left_edge_of_neighbour_given_face[face_being_rotated][1]
+
+                elif edge == "Right":
+                    edge_to_extract_from_neighbour = self.right_edge_of_neighbour_given_face[face_being_rotated][0]
+                    is_row_reverse_required = self.right_edge_of_neighbour_given_face[face_being_rotated][1]
+
+                row_edge_copy[edge] = side_from_front_view.all_neighbours[edge].getRowOrColumnCopyForRotation(
+                    edge_to_extract_from_neighbour)
+
+                if is_row_reverse_required:
+                    row_edge_copy[edge].reverse()
+
+                # don't need 2 for loops
+
